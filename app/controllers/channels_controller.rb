@@ -10,11 +10,16 @@ class ChannelsController < ApplicationController
   def create
     @channel = current_user.channels.build(channel_params)
     if @channel.save
-      flash[:success] = 'Chat room added!'
+      flash[:success] = 'Channel added!'
       redirect_to channels_path
     else
       render 'new'
     end
+  end
+
+  def show
+    @channel =
+    Channel.includes(:messages).find_by(id: params[:id])
   end
 
   private
